@@ -1,0 +1,91 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+    <div>
+        <div class="row">
+            <div class="col">
+                <label>Orige:</label>
+                <select class="form-control form-control-lg" disabled>
+                    <option value="1">Tuxtla Gutierrez</option>
+                </select>
+            </div>
+
+            <div class="col">
+                <label>Destino:</label>
+                <select class="form-control form-control-lg">
+                    <option>Villaflores</option>
+                    <option>Tonala</option>
+                    <option>Arriaga</option>
+                    <option>San Cristobal</option>
+                    <option>Tzimol</option>
+                    <option>Suchiapa</option>
+                    <option>Arriaga</option>
+                </select>
+            </div>
+
+            <div class="col">
+                <label>Fecha:</label>
+                <input type="date" class="form-control form-control-lg">
+            </div>
+
+            <div class="col" style="margin-top: 2em;">
+                <button type="button" class="btn btn-danger btn-lg" (click)="search()">Buscar viaje</button>
+            </div>
+
+            
+        </div>
+       
+        <div>
+            Viaje redondo: <input type="checkbox">
+        </div>
+    </div>
+
+    <div *ngIf="buscar">
+        <div style="margin-top: 3em;">    
+            <h2>ELIGE TU VIAJE</h2>
+            
+            <small>Todos los precios se les incrementara un IVA</small>
+        </div>
+
+        <hr>
+
+
+        <div>
+            <div class="card mb-3" style="max-width: 100%;">
+                <div class="row no-gutters">
+                    <div class="col-md-2" style="text-align: center; margin-top: 1em;">
+                        <h5>HORA DE SALIDA</h5>
+                        <h5>16:00</h5>
+                        <h5>HRS</h5>
+                    </div>
+
+                    <div class="col-md-2" style="margin-top: 1em;">
+                        <label>Tipo de viaje</label><br>
+                        Platino
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col">
+                                <small class="text-muted">SALIENDO DE:  </small><br>
+                                Tuxtla Gutierrez<br>
+
+                                <small class="text-muted">LLEGANDO A:</small><br>
+                                TONALA
+                            </div>
+
+                            <div class="col" style="margin-top: 2em;">
+                                <h2>$450</h2>
+                            </div>
+
+                            <div class="col" style="margin-top: 1.7em;">
+                            <button type="button" class="btn btn-danger btn-lg">COMPRAR BOLETO</button>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
