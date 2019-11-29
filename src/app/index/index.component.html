@@ -32,18 +32,18 @@
                 <button type="button" class="btn btn-danger btn-lg" (click)="search()">Buscar viaje</button>
             </div>
 
-            
+
         </div>
-       
+
         <div>
             Viaje redondo: <input type="checkbox">
         </div>
     </div>
 
     <div *ngIf="buscar">
-        <div style="margin-top: 3em;">    
+        <div style="margin-top: 3em;">
             <h2>ELIGE TU VIAJE</h2>
-            
+
             <small>Todos los precios se les incrementara un IVA</small>
         </div>
 
@@ -60,29 +60,27 @@
                     </div>
 
                     <div class="col-md-2" style="margin-top: 1em;">
-                        <label>Tipo de viaje</label><br>
-                        Platino
+                        <label>Tipo de viaje</label><br> Platino
                     </div>
                     <div class="col-md-8">
                         <div class="row">
                             <div class="col">
-                                <small class="text-muted">SALIENDO DE:  </small><br>
-                                Tuxtla Gutierrez<br>
+                                <small class="text-muted">SALIENDO DE:  </small><br> Tuxtla Gutierrez<br>
 
-                                <small class="text-muted">LLEGANDO A:</small><br>
-                                TONALA
+                                <small class="text-muted">LLEGANDO A:</small><br> TONALA
                             </div>
 
-                            <div class="col" style="margin-top: 2em;">
+                            <div class="col" style="margin-top: 1.5em;">
                                 <h2>$450</h2>
+                                <small>No incluye IVA</small>
                             </div>
 
                             <div class="col" style="margin-top: 1.7em;">
-                            <button type="button" class="btn btn-danger btn-lg">COMPRAR BOLETO</button>
+                                <button (click)="buy()" type="button" class="btn btn-danger btn-lg">COMPRAR BOLETO</button>
                             </div>
                         </div>
 
-                        
+
                     </div>
                 </div>
             </div>

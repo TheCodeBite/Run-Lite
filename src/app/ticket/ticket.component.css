@@ -1,0 +1,27 @@
+.ocupado {
+    border-radius: 100%;
+    background-color: #FD0000;
+    color: white;
+    width: 40px;
+    height: 40px;
+}
+
+.seleccionado {
+    border-radius: 100%;
+    background-color: #DBFD00;
+    color: black;
+    width: 40px;
+    height: 40px;
+}
+
+.disponible {
+    border-radius: 100%;
+    background-color: #7E7E7E;
+    color: black;
+    width: 40px;
+    height: 40px;
+}
+
+.asiento {
+    margin: 5px;
+}
