@@ -1,62 +1,218 @@
 <app-navbar></app-navbar>
 
 <div class="container">
-    <h4>Seleccione su lugar</h4>
     <div class="row">
-        <div class="col-md-2">
-            <div class="asiento ocupado"></div>
-            <small>ocupado</small>
-        </div>
-
-        <div class="col-md-2">
-            <div class="asiento disponible"></div>
-            <small>disponible</small>
-        </div>
-
-        <div class="col-md-2">
-            <div class="asiento seleccionado"></div>
-            <small>seleccionado</small>
-        </div>
-    </div>
-    <div style="height: 270px; border: 2px solid black; padding: 20px; border-radius: 2em; width: 50%">
-        <div class="row">
-            <div class="col-md-2">
-
-            </div>
-            <div class="col-md-9">
-                <button class="asiento disponible">A1</button>
-                <button class="disponible asiento">A2</button>
-                <button class="disponible asiento">A3</button>
-                <button class="disponible asiento">A4</button>
-                <button class="asiento disponible">A5</button>
-                <button class="asiento disponible">A6</button>
-                <br>
-                <button class="disponible asiento">A7</button>
-                <button class="disponible asiento">A8</button>
-                <button class="disponible asiento">A9</button>
-                <button class="disponible asiento">A10</button>
-                <button class="disponible asiento">A11</button>
-                <button class="disponible asiento">A12</button>
-
-                <div style="margin-top: 2em;">
-                    <button class="asiento disponible">A13</button>
-                    <button class="asiento disponible">A14</button>
-                    <button class="disponible asiento">A15</button>
-                    <button class="asiento disponible">A16</button>
-                    <button class="disponible asiento">A17</button>
-                    <button class="disponible asiento">A18</button>
-                    <br>
-                    <button class="disponible asiento">A19</button>
-                    <button class="disponible asiento">A20</button>
-                    <button class="disponible asiento">A21</button>
-                    <button class="disponible asiento">A22</button>
-                    <button class="disponible asiento">A23</button>
-                    <button class="disponible asiento">A24</button>
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-header">
+                  Venta de boleto
+                </div>
+                <div class="card-body">
+                    <form>
+                        <h5 class="card-title">{{datosViaje.origen}} - {{datosViaje.destino}}</h5>
+                        <p class="card-text">Boleto clase: {{datosViaje.clase}}</p>
+                        <p class="card-text">Fecha de salida: {{datosViaje.fecha_salida}}</p>
+                        <p class="card-text">Hora de salida: {{datosViaje.hora}} hrs</p>
+                        <p class="card-text">Fecha de regreso: {{datosViaje.fecha_regreso}}</p>
+                        <p class="card-text">Hora de regreso: {{datosViaje.hora}} hrs</p>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-outline-primary active">
+                            <input type="radio" value="0" (click)="calcularCosto(0)" checked> Simple
+                            </label>
+                            <label class="btn btn-outline-primary">
+                            <input type="radio" value="1" (click)="calcularCosto(1)" > Redondo
+                            </label>
+                        </div>
+                        <hr>
+                        <h2>$ {{costo}} pesos</h2>
+                        <button [disabled]="asiento==''" class="btn btn-success" data-toggle="modal" data-target="#compraModal">Comprar</button>
+                    </form>
                 </div>
             </div>
+        </div>
 
-            <div class="col-md-1" style=" transform: rotate(90deg);text-align: left;">
-                atras
+        <div class="col-md-7">
+            <h4>Seleccione su lugar</h4>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="ocupado"></div>
+                    <small>ocupado</small>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="disponible"></div>
+                    <small>disponible</small>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="seleccionado"></div>
+                    <small>seleccionado</small>
+                </div>
+            </div>
+            <span>Atras --------------------------------------------------------------------------- Frente</span>
+            <div class="row">       
+                <div class="col-md-12" style="border: 2px solid black; padding: 20px; border-radius: 2em;">
+                    <div style="margin-left:1em;" class="row">
+                        <div>
+                            <label [class]="listAsientos[0][1]">
+                                <button [disabled]="listAsientos[0][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(0)'>A1</button>
+                            </label>
+                            <label [class]="listAsientos[1][1]">
+                                <button [disabled]="listAsientos[1][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(1)'>A2</button>
+                            </label>
+                            <label [class]="listAsientos[2][1]">
+                                <button [disabled]="listAsientos[2][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(2)'>A3</button>
+                            </label>
+                            <label [class]="listAsientos[3][1]">
+                                <button [disabled]="listAsientos[3][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(3)'>A4</button>
+                            </label>
+                            <label [class]="listAsientos[4][1]">
+                                <button [disabled]="listAsientos[4][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(4)'>A5</button>
+                            </label>
+                            <label [class]="listAsientos[5][1]">
+                                <button [disabled]="listAsientos[5][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(5)'>A6</button>
+                            </label>
+                            <label [class]="listAsientos[6][1]">
+                                <button [disabled]="listAsientos[6][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(6)'>A7</button>
+                            </label>
+                            <label [class]="listAsientos[7][1]">
+                                <button [disabled]="listAsientos[7][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(7)'>A8</button>
+                            </label>
+                            <label [class]="listAsientos[8][1]">
+                                <button [disabled]="listAsientos[8][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(8)'>A9</button>
+                            </label>
+                            <label [class]="listAsientos[9][1]">
+                                <button [disabled]="listAsientos[9][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(9)'>A10</button>
+                            </label>
+                            <br>
+                            <label [class]="listAsientos[10][1]">
+                                <button [disabled]="listAsientos[10][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(10)'>A11</button>
+                            </label>
+                            <label [class]="listAsientos[11][1]">
+                                <button [disabled]="listAsientos[11][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(11)'>A12</button>
+                            </label>
+                            <label [class]="listAsientos[12][1]">
+                                <button [disabled]="listAsientos[12][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(12)'>A13</button>
+                            </label>
+                            <label [class]="listAsientos[13][1]">
+                                <button [disabled]="listAsientos[13][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(13)'>A14</button>
+                            </label>
+                            <label [class]="listAsientos[14][1]">
+                                <button [disabled]="listAsientos[14][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(14)'>A15</button>
+                            </label>
+                            <label [class]="listAsientos[15][1]">
+                                <button [disabled]="listAsientos[15][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(15)'>A16</button>
+                            </label>
+                            <label [class]="listAsientos[16][1]">
+                                <button [disabled]="listAsientos[16][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(16)'>A17</button>
+                            </label>
+                            <label [class]="listAsientos[17][1]">
+                                <button [disabled]="listAsientos[17][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(17)'>A18</button>
+                            </label>
+                            <label [class]="listAsientos[18][1]">
+                                <button [disabled]="listAsientos[18][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(18)'>A19</button>
+                            </label>
+                            <label [class]="listAsientos[19][1]">
+                                <button [disabled]="listAsientos[19][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(19)'>A20</button>
+                            </label>
+                        </div>
+                        <div style="margin-top: 2em;">
+                            <label [class]="listAsientos[20][1]">
+                                <button [disabled]="listAsientos[20][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(20)'>A21</button>
+                            </label>
+                            <label [class]="listAsientos[21][1]">
+                                <button [disabled]="listAsientos[21][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(21)'>A22</button>
+                            </label>
+                            <label [class]="listAsientos[22][1]">
+                                <button [disabled]="listAsientos[22][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(22)'>A23</button>
+                            </label>
+                            <label [class]="listAsientos[23][1]">
+                                <button [disabled]="listAsientos[23][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(23)'>A24</button>
+                            </label>
+                            <label [class]="listAsientos[24][1]">
+                                <button [disabled]="listAsientos[24][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(24)'>A25</button>
+                            </label>
+                            <label [class]="listAsientos[25][1]">
+                                <button [disabled]="listAsientos[25][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(25)'>A26</button>
+                            </label>
+                            <label [class]="listAsientos[26][1]">
+                                <button [disabled]="listAsientos[26][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(26)'>A27</button>
+                            </label>
+                            <label [class]="listAsientos[27][1]">
+                                <button [disabled]="listAsientos[27][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(27)'>A28</button>
+                            </label>
+                            <label [class]="listAsientos[28][1]">
+                                <button [disabled]="listAsientos[28][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(28)'>A29</button>
+                            </label>
+                            <label [class]="listAsientos[29][1]">
+                                <button [disabled]="listAsientos[29][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(29)'>A30</button>
+                            </label>
+                            <br>
+                            <label [class]="listAsientos[30][1]">
+                                <button [disabled]="listAsientos[30][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(30)'>A31</button>
+                            </label>
+                            <label [class]="listAsientos[31][1]">
+                                <button [disabled]="listAsientos[31][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(31)'>A32</button>
+                            </label>
+                            <label [class]="listAsientos[32][1]">
+                                <button [disabled]="listAsientos[32][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(32)'>A33</button>
+                            </label>
+                            <label [class]="listAsientos[33][1]">
+                                <button [disabled]="listAsientos[33][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(33)'>A34</button>
+                            </label>
+                            <label [class]="listAsientos[34][1]">
+                                <button [disabled]="listAsientos[34][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(34)'>A35</button>
+                            </label>
+                            <label [class]="listAsientos[35][1]">
+                                <button [disabled]="listAsientos[35][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(35)'>A36</button>
+                            </label>
+                            <label [class]="listAsientos[36][1]">
+                                <button [disabled]="listAsientos[36][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(36)'>A37</button>
+                            </label>
+                            <label [class]="listAsientos[37][1]">
+                                <button [disabled]="listAsientos[37][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(37)'>A38</button>
+                            </label>
+                            <label [class]="listAsientos[38][1]">
+                                <button [disabled]="listAsientos[38][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(38)'>A39</button>
+                            </label>
+                            <label [class]="listAsientos[39][1]">
+                                <button [disabled]="listAsientos[39][1]=='ocupado'" type="radio" class="asiento" (click)='asientoElegido(39)'>A40</button>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+</div>
+
+<!-- Modal pago -->
+<div class="modal fade" id="compraModal" tabindex="-1" role="dialog" aria-labelledby="compraModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="compraModalLabel">Pago de boleto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="comprarBoletoForm">
+                    <label>Nombre</label>
+                    <input formControlName="nombre" type="text" class="form-control"><br>
+                    <label>Correo</label>
+                    <input formControlName="correo" type="email" class="form-control"><br>
+                    <label>Asiento: {{asiento}}</label><br><br>
+                    <label>Metodo de pago</label>
+                    <select formControlName="tipo_pago" class="form-control form-control">
+                        <option value="1" selected>Efectivo</option>
+                        <option value="2">Tarjeta</option>
+                    </select>
+                </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-success" (click)="comprarBoleto()">Comprar</button>
             </div>
         </div>
     </div>

@@ -8,7 +8,7 @@ import { TicketComponent } from './ticket/ticket.component';
 const routes: Routes = [
   { path: '', component: IndexComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'ticket', component: TicketComponent }
+  { path: 'ticket/:id', component: TicketComponent }
 ];
 
 @NgModule({
