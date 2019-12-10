@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+// Import your library
+import { NgxStripeModule } from 'ngx-stripe';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -21,6 +24,7 @@ import { TicketComponent } from './ticket/ticket.component';
     TicketComponent
   ],
   imports: [
+    NgxStripeModule.forRoot('pk_test_2rss5SVRD1HtKT1p6fDVEoVc00cjgyrokn'),
     BrowserModule,
     AppRoutingModule,
     FormsModule,
