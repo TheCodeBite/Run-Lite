@@ -1,37 +1,38 @@
 <app-navbar></app-navbar>
-<div class="container">
-    <div>
-        <form [formGroup]="buscadorForm">
-            <div class="row">
+<div class="container-fluid hero-image" style="background-image:url(https://busbud.imgix.net/default-heroes/bus.jpg?auto=compress%2Cformat&w=2048&h=500&q=10)">
+    <div class="cubierta">
+        <form class="justify-content-center text-center" style="margin: 60px;" [formGroup]="buscadorForm">
+            <h1>Encuentra un autobús en RUN LITE para tu próximo viaje.</h1><hr>
+            <div class="row"> 
                 <div class="col">
-                    <label>Orige:</label>
+                    <label><strong>Orige:</strong></label>
                     <select class="form-control form-control-lg" disabled>
                         <option value="2">Tuxtla Gutierrez</option>
                     </select>
                 </div>
 
                 <div class="col">
-                    <label>Destino:</label>
+                    <label><strong>Destino:</strong></label>
                     <select formControlName="lugar_destino" class="form-control form-control-lg">
                         <option *ngFor="let destino of listDestinos" value="{{destino.id}}">{{destino.nombre}}</option>
                     </select>
                 </div>
 
                 <div class="col">
-                    <label>Fecha:</label>
+                    <label><strong>Fecha:</strong></label>
                     <input formControlName="fecha_salida" type="date" class="form-control form-control-lg">
                 </div>
 
                 <div class="col" style="margin-top: 2em;">
-                    <button type="button" class="btn btn-danger btn-lg" (click)="search()">Buscar viaje</button>
+                    <button type="button" class="btn btn-lg" style="background-color: #C8142C; color: white;" (click)="search()">Buscar viaje</button>
                 </div>
-
-
             </div>    
         </form>
-
+        <hr>
     </div>
+</div>
 
+<div class="container">
     <h2 *ngIf="sinResultados">Lo sentimos, no contamos con esos viajes.</h2>
     <div *ngIf="buscar">
         <div style="margin-top: 3em;">

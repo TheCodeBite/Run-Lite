@@ -1,0 +1,21 @@
+.hero-image {
+    background-position: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 300px;
+}
+.cubierta{
+    background-position: 50%;
+    background-size: cover;
+    position: absolute;
+    background-color: #5b8fa8;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 300px;
+    opacity: .85;
+}

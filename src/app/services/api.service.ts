@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })  
 export class ApiService {
-  url="http://127.0.0.1:8000/api/v1/";
+  url="https://runliteapi.herokuapp.com/api/v1/";
 
   constructor(private http: HttpClient) { }
   
