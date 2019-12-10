@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 
-<div class="container">
+<div style="margin-top: 4em;" class="container">
     <div class="row">
         <div class="col-md-5">
             <div class="card">
@@ -12,9 +12,9 @@
                         <h5 class="card-title">{{datosViaje.origen}} - {{datosViaje.destino}}</h5>
                         <p class="card-text">Boleto clase: {{datosViaje.clase}}</p>
                         <p class="card-text">Fecha de salida: {{datosViaje.fecha_salida}}</p>
-                        <p class="card-text">Hora de salida: {{datosViaje.hora}} hrs</p>
+                        <p class="card-text">Hora de salida: {{datosViaje.hora_nombre}} hrs</p>
                         <p class="card-text">Fecha de regreso: {{datosViaje.fecha_regreso}}</p>
-                        <p class="card-text">Hora de regreso: {{datosViaje.hora}} hrs</p>
+                        <p class="card-text">Hora de regreso: {{datosViaje.hora_nombre}} hrs</p>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
                             <label class="btn btn-outline-primary active">
                             <input type="radio" value="0" (click)="calcularCosto(0)" checked> Simple
