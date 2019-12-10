@@ -40,7 +40,7 @@ export class IndexComponent implements OnInit {
     });
   }
   verDestinos(){
-    this.api.verLugares(2).subscribe(response => {
+    this.api.verLugares(1).subscribe(response => {
       this.listDestinos=response
     });
   }

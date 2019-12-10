@@ -53,7 +53,7 @@ export class TicketComponent implements OnInit {
       lugar_origen:[this.datosViaje.origen],
       lugar_destino:[this.datosViaje.destino],
       clase:[this.datosViaje.clase],
-      hora:[this.datosViaje.hora],
+      hora:[this.datosViaje.hora_nombre],
       tipo_boleto:[0],
       nombre:[""],
       correo:[""],
