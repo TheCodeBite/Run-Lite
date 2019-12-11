@@ -4,6 +4,7 @@ import { ApiService } from '../services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { StripeService, Elements, Element as StripeElement, ElementsOptions } from "ngx-stripe";
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-ticket',
@@ -161,7 +162,12 @@ export class TicketComponent implements OnInit {
             console.log(response);
             this.api.comprarBoleto(this.comprarBoletoForm.value).subscribe(response => {
               console.log(response);
-              
+              Swal.fire(
+                'Dato guardado!',
+                'Clase agregada con exito!',
+                'success'
+              )
+              location.reload();
             })
           })
 
