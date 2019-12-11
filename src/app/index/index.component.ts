@@ -31,13 +31,6 @@ export class IndexComponent implements OnInit {
   ngOnInit() {
     this.verDestinos()
   }
-
-  elementsOptions: ElementsOptions = {
-    locale: 'es'
-  };
-
-  stripeTest: FormGroup;
-
   search(){
     this.buscar = true;     
     this.sinResultados=false
@@ -50,26 +43,12 @@ export class IndexComponent implements OnInit {
     });
   }
   verDestinos(){
-    this.api.verLugares(2).subscribe(response => {
+    this.api.verLugares(1).subscribe(response => {
       this.listDestinos=response
     });
   }
 
   buy(id){
     this.route.navigate(['/ticket/'+id])
-
-    const name = this.stripeTest.get('name').value;
-    this.stripeService
-      .createToken(this.card, { name })
-      .subscribe(result => {
-        if (result.token) {
-          // Use the token to create a charge or a customer
-          // https://stripe.com/docs/charges
-          console.log(result.token);
-        } else if (result.error) {
-          // Error creating the token
-          console.log(result.error.message);
-        }
-      });
   }
 }

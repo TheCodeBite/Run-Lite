@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
-import { FormBuilder } from "@angular/forms";
 import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { StripeService, Elements, Element as StripeElement, ElementsOptions } from "ngx-stripe";
 
 @Component({
   selector: 'app-ticket',
@@ -10,6 +11,19 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./ticket.component.css']
 })
 export class TicketComponent implements OnInit {
+
+  token_pago: any;
+
+  elements: Elements;
+  card: StripeElement;
+
+  elementsOptions: ElementsOptions = {
+    locale: 'es'
+  };
+
+  stripeTest: FormGroup;
+
+
   comprarBoletoForm = this.fb.group({})
   datosViaje:any
   id:any
@@ -28,12 +42,49 @@ export class TicketComponent implements OnInit {
     ["A31","disponible"],["A32","disponible"],["A33","disponible"],["A34","disponible"],["A35","disponible"],
     ["A36","disponible"],["A37","disponible"],["A38","disponible"],["A39","disponible"],["A40","disponible"]
   ]
-  constructor(private rutaActiva: ActivatedRoute,private api:ApiService,private fb: FormBuilder,private route: Router) { }
+  constructor(private rutaActiva: ActivatedRoute,private api:ApiService,private fb: FormBuilder,private route: Router,  private stripeService: StripeService) { }
 
   ngOnInit() {
     this.id=this.rutaActiva.snapshot.params.id
+    
     this.verViaje(this.id)
     this.verAsientosOcupados(this.id)
+
+    this.stripeTest = this.fb.group({
+      name: ['', [Validators.required]]
+    });
+
+    this.stripeService.elements(this.elementsOptions)
+      .subscribe(elements => {
+        this.elements = elements;
+        // Only mount the element the first time
+        if (!this.card) {
+          this.card = this.elements.create('card', {
+            style: {
+              base: {
+                iconColor: '#666EE8',
+                color: '#31325F',
+                lineHeight: '40px',
+                fontWeight: 300,
+                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                fontSize: '18px',
+                '::placeholder': {
+                  color: '#CFD7E0'
+                }
+              }
+            }
+          });
+          this.card.mount('#card-element');
+        }
+      });
+
+      this.comprarBoletoForm = this.fb.group({
+        itinerario:[this.id],
+        nombre:[""],
+        correo:[""],
+        costo:[this.costo],
+        asiento:[""]
+      })
   }
 
   verViaje(id){
@@ -42,26 +93,9 @@ export class TicketComponent implements OnInit {
       this.costo=(this.datosViaje.km + this.datosViaje.costo) + ((this.datosViaje.km + this.datosViaje.costo)*0.16)
       this.costo=this.costo- (this.costo*0.09)
       this.costo=Math.ceil(this.costo)
-      this.inicializarFormulario()
     });
   }
   
-  inicializarFormulario(){
-    this.comprarBoletoForm = this.fb.group({
-      fecha_salida:[this.datosViaje.fecha_salida],
-      fecha_regreso:[this.datosViaje.fecha_regreso],
-      lugar_origen:[this.datosViaje.origen],
-      lugar_destino:[this.datosViaje.destino],
-      clase:[this.datosViaje.clase],
-      hora:[this.datosViaje.hora_nombre],
-      tipo_boleto:[0],
-      nombre:[""],
-      correo:[""],
-      tipo_pago:[""],
-      costo:[this.costo],
-      asiento:[""]
-    })
-  }
 
   calcularCosto(tipoBoleto){
     if(tipoBoleto==0){
@@ -102,7 +136,40 @@ export class TicketComponent implements OnInit {
     }
   }
 
+
+  temp: any;
+
   comprarBoleto(){
+    this.comprarBoletoForm.value.costo = this.costo;
     console.log(this.comprarBoletoForm.value)
+    console.log(this.stripeTest.value);
+
+    const name = this.stripeTest.get('name').value;
+    this.stripeService
+      .createToken(this.card, { name })
+      .subscribe(result => {
+        if (result.token) {
+          // Use the token to create a charge or a customer
+          // https://stripe.com/docs/charges
+          console.log(result.token);
+          var body = {
+            amount: [this.comprarBoletoForm.value.costo],
+            stripeToken: result.token
+          }
+
+          this.api.realizarPago(body).subscribe(response => {
+            console.log(response);
+            this.api.comprarBoleto(this.comprarBoletoForm.value).subscribe(response => {
+              console.log(response);
+              
+            })
+          })
+
+
+        } else if (result.error) {
+          // Error creating the token
+          console.log(result.error.message);
+        }
+      });
   }
 }
